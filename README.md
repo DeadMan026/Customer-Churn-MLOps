@@ -63,25 +63,11 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 ## Project Structure
 
 ```
-├── data/
-│   ├── raw/            # Original dataset (not committed)
-│   ├── processed/      # Cleaned & transformed data
-│   └── external/       # Any third-party data
-├── notebooks/          # EDA and exploration notebooks
-├── src/
-│   ├── data/           # Data loading & preprocessing scripts
-│   ├── features/       # Feature engineering
-│   ├── models/         # Training & evaluation
-│   └── utils/          # Shared utilities
-├── app/                # FastAPI + Gradio app
-├── configs/            # Config files (hyperparameters, paths)
-├── scripts/            # One-off utility scripts
-├── tests/              # Unit and integration tests
-├── .github/workflows/  # CI/CD pipelines
-├── docker/             # Dockerfile and related configs
-├── great_expectations/ # Data validation
-├── mlruns/             # MLflow tracking (not committed)
-└── artifacts/          # Saved models (not committed)
+├── notebooks/
+│   └── EDA.ipynb       # Exploratory Data Analysis
+├── .gitignore          # Git ignore rules
+├── README.md           # Project documentation
+└── requirements.txt    # Project dependencies
 ```
 
 ---
