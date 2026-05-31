@@ -1,0 +1,66 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data (raw/processed data should not be committed)
+data/raw/
+data/processed/
+data/external/
+*.csv
+*.parquet
+*.xlsx
+*.json
+!configs/*.json
+
+# Models & artifacts
+artifacts/
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.pth
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Environment variables
+.env
+.env.*
+
+# IDEs
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
+
+# AWS
+.aws/
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+
+# Great Expectations
+great_expectations/uncommitted/
