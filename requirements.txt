@@ -1,6 +1,7 @@
 ﻿pandas
 numpy
 scikit-learn
+optuna
 mlflow
 fastapi
 uvicorn
@@ -9,3 +10,8 @@ python-dotenv
 joblib
 great-expectations
 pytest
+lightgbm
+xgboost
+seaborn
+matplotlib
+statsmodels
