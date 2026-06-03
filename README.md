@@ -11,14 +11,10 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 - [x] Project structure set up
 - [x] Virtual environment + dependencies configured
 - [x] Exploratory Data Analysis (EDA)
-  - Dataset overview and `.describe()` analysis
-  - Identified binary vs multi-category variables
-  - Label encoding for binary columns
-  - One-Hot Encoding for multi-category columns
-  - Collapsed redundant dummy columns (`No internet service`, `No phone service`)
-  - Correlation analysis with churn target
-  - VIF (Variance Inflation Factor) analysis to detect multicollinearity
-- [ ] Feature engineering
+- [x] Data Processing & Feature Engineering
+  - Basic cleaning: ID removal, data type fixing (`TotalCharges`), target mapping
+  - Feature extraction: Binary encoding for 2-category features
+  - One-hot encoding for multi-category features with multicollinearity handling
 - [ ] Model training & evaluation
 - [ ] MLflow experiment tracking
 - [ ] API development
@@ -28,43 +24,35 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 
 ---
 
-## Planned Pipeline
+## Modular Pipeline
 
-### Modeling
+### 1. Data Processing (`src/data`)
+- **`load_data.py`**: Robust CSV loading utility.
+- **`preprocess.py`**: Automated cleaning pipeline including whitespace stripping, ID column removal, and numerical conversion for inconsistent fields.
+
+### 2. Feature Engineering (`src/features`)
+- **`build_features.py`**: Automated feature transformation pipeline.
+  - Deterministic binary mapping for demographic and service categories.
+  - Multi-category one-hot encoding with `drop_first=True`.
+  - Type-safe conversions for model compatibility (XGBoost).
+
+### 3. Planned: Modeling
 - Train an XGBoost classifier on the engineered features
 - Track all experiments, metrics, and artifacts with **MLflow**
 - Evaluate using AUC-ROC, precision, recall, F1
-
-### Inference Service
-- **FastAPI** app exposing a `POST /predict` endpoint
-- Health check at `GET /`
-- **Gradio** UI mounted at `/ui` for quick manual testing
-
-### Containerization
-- Dockerized app with `uvicorn` as the entrypoint
-- Image built via **GitHub Actions** and pushed to Docker Hub
-
-### CI/CD
-- GitHub Actions workflow on push to `main`:
-  - Build Docker image
-  - Push to Docker Hub
-  - Optionally trigger ECS redeployment
-
-### Cloud Deployment (AWS)
-- **ECS Fargate** to run the container (serverless)
-- **Application Load Balancer (ALB)** on port 80 forwarding to container on port 8000
-- **CloudWatch Logs** for observability
-- Security groups scoped: ALB allows inbound 80 from internet; task allows inbound 8000 from ALB SG only
-
-> Note: The plan above reflects current intent. Implementation details may evolve as the project progresses.
 
 ---
 
 ## Project Structure
 
 ```
+├── app/                # Future FastAPI implementation
+├── data/               # Local data storage (ignored by git)
 ├── notebooks/
 │   └── EDA.ipynb       # Exploratory Data Analysis
+├── src/
+│   ├── data/           # Data loading and preprocessing scripts
+│   └── features/       # Feature engineering and transformation logic
 ├── .gitignore          # Git ignore rules
 ├── README.md           # Project documentation
 └── requirements.txt    # Project dependencies
