@@ -25,15 +25,15 @@ def train_model(df: pd.DataFrame, target_col: str):
 
     # Initialize the model with your best parameters
     model = XGBClassifier(
-        n_estimators=376,
-        learning_rate=0.11552620892008209,
-        max_depth=6,
-        subsample=0.996637854862527,
-        colsample_bytree=0.9862899696923655,
-        min_child_weight=10,
-        gamma=4.895479894313713,
-        reg_alpha=3.7611319076202037,
-        reg_lambda=0.1326009596944906,
+        n_estimators=381,
+        learning_rate=0.06146955484874729,
+        max_depth=4,
+        subsample=0.9999156440233287,
+        colsample_bytree=0.9509340024134957,
+        min_child_weight=4,
+        gamma=4.061122396595465,
+        reg_alpha=4.9843016642256135,
+        reg_lambda=2.7784428587760575,
         random_state=42,  # Added for reproducibility
         eval_metric='logloss' 
     )
@@ -53,7 +53,7 @@ def train_model(df: pd.DataFrame, target_col: str):
 
 
         # 🔑 Log dataset so it shows in MLflow UI
-        train_ds = from_pandas1(df, name="training_data")
+        train_ds = from_pandas(df, name="training_data")
         mlflow.log_input(train_ds, context="training")
 
         print(f"Model trained. Accuracy: {acc:.4f}, Recall: {rec:.4f}")

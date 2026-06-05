@@ -2,23 +2,22 @@
 
 ## Overview
 
-Predicting customer churn for a telecom provider using the IBM Telco Customer Churn dataset. The goal is to build a full ML pipeline — from raw data to a deployed, accessible inference service.
+Predicting customer churn for a telecom provider using the IBM Telco Customer Churn dataset. This project implements a full ML pipeline — from raw data to experiment tracking and validation.
 
 ---
 
 ## Current Status
 
 - [x] Project structure set up
-- [x] Virtual environment + dependencies configured
-- [x] Exploratory Data Analysis (EDA)
-- [x] Data Processing & Feature Engineering
-  - Basic cleaning: ID removal, data type fixing (`TotalCharges`), target mapping
-  - Feature extraction: Binary encoding for 2-category features
-  - One-hot encoding for multi-category features with multicollinearity handling
-- [ ] Model training & evaluation
-- [ ] MLflow experiment tracking
-- [ ] API development
-- [ ] Containerization
+- [x] Virtual environment + dependencies configured (Pinned versions)
+- [x] Exploratory Data Analysis (EDA) with portable path handling (`pathlib`)
+- [x] Data Validation Suite (Great Expectations)
+- [x] Automated Preprocessing Pipeline
+- [x] Feature Engineering (Binary & One-Hot Encoding)
+- [x] Model training (XGBoost)
+- [x] MLflow experiment & artifact tracking
+- [ ] API development (FastAPI)
+- [ ] Containerization (Docker)
 - [ ] CI/CD pipeline
 - [ ] Cloud deployment
 
@@ -26,20 +25,23 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 
 ## Modular Pipeline
 
-### 1. Data Processing (`src/data`)
-- **`load_data.py`**: Robust CSV loading utility.
-- **`preprocess.py`**: Automated cleaning pipeline including whitespace stripping, ID column removal, and numerical conversion for inconsistent fields.
+### 1. Data Validation (`src/utils`)
+- **`validate_data.py`**: Uses **Great Expectations** to enforce schema integrity, numeric ranges, and business logic (e.g., `TotalCharges >= MonthlyCharges`).
 
-### 2. Feature Engineering (`src/features`)
-- **`build_features.py`**: Automated feature transformation pipeline.
+### 2. Data Processing (`src/data`)
+- **`load_data.py`**: Robust CSV loading utility with error handling.
+- **`preprocess.py`**: Automated cleaning pipeline including whitespace stripping, ID removal, and numerical conversion for inconsistent fields.
+
+### 3. Feature Engineering (`src/features`)
+- **`build_features.py`**: Automated transformation pipeline.
   - Deterministic binary mapping for demographic and service categories.
   - Multi-category one-hot encoding with `drop_first=True`.
-  - Type-safe conversions for model compatibility (XGBoost).
+  - Type-safe conversions for XGBoost compatibility.
 
-### 3. Planned: Modeling
-- Train an XGBoost classifier on the engineered features
-- Track all experiments, metrics, and artifacts with **MLflow**
-- Evaluate using AUC-ROC, precision, recall, F1
+### 4. Model Training (`src/models`)
+- **`train.py`**: XGBoost classifier implementation with integrated **MLflow** tracking.
+  - Logs hyper-parameters, accuracy, and recall metrics.
+  - Automatically logs model artifacts and input datasets for full lineage.
 
 ---
 
@@ -47,30 +49,35 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 
 ```
 ├── app/                # Future FastAPI implementation
-├── data/               # Local data storage (ignored by git)
+├── data/
+│   ├── raw/            # Raw data storage (ignored by git)
+│   └── processed/      # Intermediate processed data
 ├── notebooks/
-│   └── EDA.ipynb       # Exploratory Data Analysis
+│   └── EDA.ipynb       # Exploratory Data Analysis (using pathlib)
 ├── src/
 │   ├── data/           # Data loading and preprocessing scripts
-│   └── features/       # Feature engineering and transformation logic
+│   ├── features/       # Feature engineering logic
+│   ├── models/         # Training scripts
+│   └── utils/          # Validation and utility functions
 ├── .gitignore          # Git ignore rules
 ├── README.md           # Project documentation
-└── requirements.txt    # Project dependencies
+└── requirements.txt    # Pinned dependencies
 ```
-
----
-
-## Dataset
-
-[IBM Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) — 7,043 customers, 21 features including demographics, services subscribed, account info, and a `Churn` target column.
 
 ---
 
 ## Setup
 
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-pip install --upgrade pip
-uv pip install -r requirements.txt
-```
+1. **Clone the repository**
+2. **Environment Setup:**
+   ```powershell
+   python -m venv .venv
+   .venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
+3. **Data Placement:**
+   - Download the [IBM Telco Customer Churn](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) dataset.
+   - Place the CSV file in `data/raw/` and name it `WA_Fn-UseC_-Telco-Customer-Churn.csv`.
+
+4. **Running EDA:**
+   The notebook in `notebooks/EDA.ipynb` uses `pathlib` for root-centric path resolution, making it portable across environments.
