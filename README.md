@@ -45,6 +45,24 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 
 ---
 
+## Pipeline Testing
+
+The project includes standalone scripts in the `scripts/` directory to verify the integrity of the pipeline stages. These scripts are useful for debugging and ensuring that changes to the core logic don't break the end-to-end flow.
+
+### Phase 1: Data & Features
+- **`scripts/test_pipeline_01_data_features.py`**: Validates the flow from raw data loading through preprocessing to feature engineering.
+  ```powershell
+  python scripts/test_pipeline_01_data_features.py
+  ```
+
+### Phase 2: Modeling
+- **`scripts/test_pipeline_02_modeling.py`**: Tests the modeling phase, including hyperparameter tuning with **Optuna** and XGBoost classification.
+  ```powershell
+  python scripts/test_pipeline_02_modeling.py
+  ```
+
+---
+
 ## Project Structure
 
 ```
