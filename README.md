@@ -15,7 +15,7 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 - [x] Automated Preprocessing Pipeline
 - [x] Feature Engineering (Binary & One-Hot Encoding)
 - [x] Model training (XGBoost)
-- [x] MLflow experiment & artifact tracking
+- [ ] MLflow experiment & artifact tracking
 - [ ] API development (FastAPI)
 - [ ] Containerization (Docker)
 - [ ] CI/CD pipeline
