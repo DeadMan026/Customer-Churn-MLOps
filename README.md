@@ -15,7 +15,7 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 - [x] Automated Preprocessing Pipeline
 - [x] Feature Engineering (Binary & One-Hot Encoding)
 - [x] Model training (XGBoost)
-- [ ] MLflow experiment & artifact tracking
+- [x] MLflow experiment & artifact tracking
 - [ ] API development (FastAPI)
 - [ ] Containerization (Docker)
 - [ ] CI/CD pipeline
@@ -59,6 +59,12 @@ The project includes standalone scripts in the `scripts/` directory to verify th
 - **`scripts/test_pipeline_02_modeling.py`**: Tests the modeling phase, including hyperparameter tuning with **Optuna** and XGBoost classification.
   ```powershell
   python scripts/test_pipeline_02_modeling.py
+  ```
+
+### Full Pipeline Orchestration
+- **`scripts/run_pipeline.py`**: Runs the complete end-to-end pipeline (Loading → Validation → Preprocessing → Features → Training → Evaluation) with full MLflow tracking.
+  ```powershell
+  python scripts/run_pipeline.py --input data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv
   ```
 
 ---

@@ -46,7 +46,7 @@ def train_model(df: pd.DataFrame, target_col: str):
         rec = float(recall_score(y_test, preds))
 
         # Log parameters, metrics and model
-        mlflow.log_param("n_estimators",376)
+        mlflow.log_params(model.get_params())
         mlflow.log_metric("accuracy",acc)
         mlflow.log_metric("recall",rec)
         mlflow_xgboost.log_model(model,"model")
