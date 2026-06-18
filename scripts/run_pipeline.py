@@ -32,8 +32,9 @@ def main(args):
     
     # === MLflow Setup - ESSENTIAL for experiment tracking ===
     # Configure MLflow to use local file-based tracking (not a tracking server)
-    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    mlruns_path = args.mlflow_uri or f"file://{project_root}/mlruns"  # Local file-based tracking
+    from pathlib import Path
+    project_root = Path(__file__).resolve().parent.parent
+    mlruns_path = args.mlflow_uri or (project_root / "mlruns").as_uri()
     mlflow.set_tracking_uri(mlruns_path)
     mlflow.set_experiment(args.experiment)  # Creates experiment if doesn't exist
 
@@ -229,10 +230,12 @@ if __name__ == "__main__":
     main(args)
 
 """
-# Use this below to run the pipeline:
+# Use this below to run the pipeline in PowerShell:
 
-python scripts/run_pipeline.py \
-    --input data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv \
+python scripts/run_pipeline.py `
+    --input data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv `
     --target Churn
 
+# Or as a single line:
+# python scripts/run_pipeline.py --input data/raw/WA_Fn-UseC_-Telco-Customer-Churn.csv --target Churn
 """
