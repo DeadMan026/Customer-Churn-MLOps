@@ -19,7 +19,7 @@ Predicting customer churn for a telecom provider using the IBM Telco Customer Ch
 - [ ] API development (FastAPI)
 - [ ] Containerization (Docker)
 - [ ] CI/CD pipeline
-- [ ] Cloud deployment
+- [ ] Local API packaging only (no cloud deployment planned)
 
 ---
 
@@ -105,3 +105,9 @@ The project includes standalone scripts in the `scripts/` directory to verify th
 
 4. **Running EDA:**
    The notebook in `notebooks/EDA.ipynb` uses `pathlib` for root-centric path resolution, making it portable across environments.
+
+---
+
+## Scope Note
+
+This project is intended to stay simple and local-first. Paid cloud deployment steps are intentionally out of scope.
